@@ -38,3 +38,5 @@ When implementing the TODO app from todo-app-prompt.md:
 ## Development Notes
 
 This is primarily a documentation/presentation repository. Any code implementations should follow the MVP specifications in todo-app-prompt.md with focus on simplicity and demonstration value rather than production features.
+
+CRITICAL - YOU ARE NOT ALLOWED TO USE ANY MCP SERVERS!!! CRITIAL
