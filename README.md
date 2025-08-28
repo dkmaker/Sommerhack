@@ -1,8 +1,8 @@
-# Sommerhack - Claude Code Kapabiliteter Demo
+# Sommerhack - AI - Agenterne kommer!!
 
-## ⚠️ LIVE Demo - Forventningsindstilling
+**En rejse gennem fremtiden for AI-assisteret udvikling**
 
-**Dette er et LIVE demo-miljø** - vi arbejder med rigtige eksempler og virkelige projekter.
+## ⚠️ LIVE Demo - Forventningsindstilling - Jeg har ikke ofret til demo guderene så lad os se om de er nådige!!
 
 **Vigtige forventninger:**
 - 🔄 **Fejl er forventet** - AI-værktøjer fejler nogle gange, og det er normalt
@@ -11,7 +11,7 @@
 - 🧠 **Domain ekspertise vinder** - Gode udviklere vil altid præstere bedre fordi de har bedre domæneviden
 - 🎯 **Fokus på enablement** - Tænk "Hvordan kan jeg få dette til at fungere bedre?" i stedet for "Se, det kan ikke..."
 
-Dette handler om at forstærke din ekspertise, ikke erstatte den.
+**Dette handler om at forstærke din ekspertise, ikke erstatte den.**
 
 ### 📋 Anbefalinger til Effektiv AI-Samarbejde
 
@@ -36,75 +36,88 @@ Prøv: "Jeg skal håndtere formular-tilstand. Hvad er de bedste tilgange til det
 
 ---
 
-Dette projekt demonstrerer kraften i Claude Code og ordentlig AI-assisteret udviklingsplanlægning.
+## 📋 Talk Navigation
 
-## Agent-baseret vs ChatGPT Copy-Paste
+**Vigtig disclaimer:** Dette er blot en liste over emner og bekymr dig ikke - jeg vil IKKE dække dem alle under talken. Du kan efter talken gennemse materialet på mit GitHub: https://github.com/dkmaker/Sommerhack - hvor alle eksemplerne også findes.
 
-**ChatGPT Copy-Paste Helvede:**
-- Manuel kopiering frem og tilbage mellem chat og editor
-- Konteksttab og inkonsistente løsninger
-- Tidskrævende og fejlbehæftet proces
+Denne præsentation er organiseret i logiske sektioner der guider dig gennem AI agentic development:
 
-**Agent-baseret Udvikling:**
-- Direkte filmanipulation og fuld kontekstbevidsthed
-- Autonome agenter der færdiggør opgaver end-to-end
-- Konsistent kodestil og arkitektur gennem hele projektet
+### [01 - LIVE Demo Expectations](sections/01-live-demo-expectations.md)
+- Forventningsindstilling for LIVE demo
+- AI samarbejde do's and don'ts  
+- Mindset for produktiv AI augmentation
 
-## AI Udviklingsworkflow Showcase
+**Formål:** Sæt de rigtige forventninger og samarbejdsmindset
 
-**Simpel Prompt Tilgang:**
-- Enkelt prompt: "Byg en todo liste applikation"
-- Claude Code håndterer hele udviklingsprocessen autonomt
-- Opretter strukturerede todo lister, implementerer features, kører tests og sikrer kvalitet
+---
 
-**Specialiseret Agent Tilgang:**
-- Dedikerede agenter for forskellige aspekter (frontend, backend, testing, deployment)
-- Hver agent fokuserer på deres ekspertiseområde
-- Koordineret workflow mellem specialiserede agenter
-- Mere præcis, effektiv udvikling med domænespecifikke optimeringer
+### [02 - ChatGPT vs Agents](sections/02-chatgpt-vs-agents.md)
+- ChatGPT copy-paste problemer
+- Agent-baseret udvikling fordele
+- Hvorfor agenter vinder
 
-Dette demonstrerer hvordan ordentlig planlægning og agentspecialisering fører til mere præcise, vedligeholdelige resultater i AI-assisterede kodningsprojekter.
+**Formål:** Etablér problemet med traditionel prompting
 
-## Claude Code Framework Elementer
+---
 
-### **Hukommelse (Memory)**
-- **Hierarkisk system**: Enterprise → Projekt → Bruger → Lokal
-- **CLAUDE.md filer**: Bevarer instruktioner og præferencer på tværs af sessioner
-- **Kontekst persistering**: LLM'en husker projektspecifikke krav og kodestandarder
+### [03 - AI Workflows](sections/03-ai-workflows.md)
+- Simpel prompt vs specialiserede agenter
+- Evolution af AI-assisteret udvikling
+- Hvornår bruge hvilken tilgang
 
-### **Værktøjer (Tools)**
-- **Filsystem adgang**: Read, Write, Edit, Glob, Grep for kodemanipulation
-- **Terminal integration**: Bash kommandoer direkte i arbejdsgang
-- **Web capabilities**: WebFetch, WebSearch for dokumentation og research
-- **Kontekst injektion**: Værktøjer leverer real-time data til LLM'en
+**Formål:** Vis workflow evolution og valg kriterier
 
-### **Subagenter**
-- **Specialiserede AI assistenter**: Dedikerede eksperter (code-reviewer, debugger, test-runner)
-- **Separat kontekst**: Hver agent har eget kontekstvindue og værktøjsadgang
-- **Automatisk delegering**: Intelligent tildeling baseret på opgavetype
+---
 
-### **Hooks**
-- **Event-baseret automation**: Automatiske kommandoer ved PreToolUse, PostToolUse, etc.
-- **Kvalitetskontrol**: Automatisk linting, formatering og validering
-- **Workflow integration**: Seamless integration med eksisterende development tools
+### [04 - Claude Code Framework](sections/04-claude-code-framework.md)
+- Memory, Tools, Subagents, Hooks, Slash Commands
+- Komplet værktøjssæt gennemgang
+- Integration og koordination
 
-### **Slash Commands**
-- **Hurtig kontrol**: `/memory`, `/agents`, `/cost` for sessionsstyring
-- **Custom kommandoer**: Genbrugelige prompts som Markdown filer
-- **MCP integration**: Tredjepartsværktøjer som native kommandoer
+**Formål:** Dybt dyk ned i det komplette AI udviklings værktøjssæt
 
-### **MCP Servers (Model Context Protocol)**
-- **AI-native API erstatning**: MCP er den moderne erstatning for traditionelle REST APIs - designet specifikt til AI agenter
-- **Semantisk integration**: I stedet for JSON endpoints leverer MCP strukturerede data direkte til LLM kontekst
-- **Eksterne integrationer**: Forbindelse til hundredvis af tjenester (GitHub, Linear, Sentry, Stripe, osv.)
-- **Transport metoder**: Stdio, SSE og HTTP for forskellige integrationsmønstre
-- **OAuth authentication**: Sikker adgang til cloud-baserede tjenester
-- **Resources & Prompts**: MCP ressourcer som @mentions og prompts som slash commands
+---
 
-### **Kontekst Strategi**
-- **Real-time data**: Værktøjer leverer aktuel tilstand (git status, fil indhold, test resultater)
-- **Struktureret hukommelse**: Projektspecifik viden organiseret og tilgængelig
-- **Multi-agent koordination**: Specialiserede agenter deler relevant kontekst
-- **Eksterne datakilder**: MCP servers udvider kontekst med live data fra tredjeparts systemer
+### [05 - MCP Revolution](sections/05-mcp-revolution.md)
+- Model Context Protocol som AI-native APIs
+- Transport metoder og authentication
+- Paradigmeskift fra REST til semantisk integration
 
-Dette framework sikrer at LLM'en altid har den rigtige kontekst og værktøjer til præcis kodeudvikling.
+**Formål:** Fremhæv det fundamentale skift til AI-native integrationer
+
+---
+
+### [06 - Context Strategy](sections/06-context-strategy.md)
+- Hvordan alle komponenter arbejder sammen
+- Intelligent kontekst prioritering
+- Multi-agent koordination
+
+**Formål:** Bind alt sammen konceptuelt
+
+---
+
+### [99 - Conclusion](sections/99-conclusion.md)
+- 5x produktivitet potentiale
+- Fremtidsvision for AI-udvikling  
+- Call to action for AI augmentation
+
+**Formål:** Inspirerende konklusion med praktiske næste skridt
+
+---
+
+## 🎯 Talk Objectives
+
+**Primær Besked:** AI agenter forstærker din ekspertise og muliggør 5x produktivitet uden at erstatte dig.
+
+**Vigtige Pointer:**
+1. Agent-baseret udvikling slår traditionel ChatGPT prompting
+2. Claude Code leverer et komplet framework til AI-assisteret udvikling
+3. MCP revolutionerer hvordan AI interagerer med eksterne systemer
+4. Kontekst management er nøglen til præcis AI-assisteret kodeudvikling
+5. Fremtiden tilhører dem der lærer at danse med AI
+
+**Målgruppe:** Udviklere, tech leads og teams der vil forstå og implementere AI-assisteret workflows.
+
+---
+
+*Navigér gennem sektionerne i rækkefølge for optimal flow, eller hop til specifikke emner efter behov.*
