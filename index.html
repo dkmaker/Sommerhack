@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO MVP App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .add-task {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .add-task input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .add-task input[type="date"] {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .add-task button {
+            padding: 12px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .add-task button:hover {
+            background: #0056b3;
+        }
+
+        .task-list {
+            list-style: none;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            background: white;
+        }
+
+        .task-item.completed {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .task-item input[type="checkbox"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-title {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .task-title.completed {
+            text-decoration: line-through;
+            color: #666;
+        }
+
+        .task-deadline {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .task-deadline.overdue {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .task-deadline.due-soon {
+            color: #fd7e14;
+            font-weight: bold;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .task-actions button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .edit-btn {
+            background: #28a745;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background: #1e7e34;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 40px;
+        }
+
+        .edit-form {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .edit-form input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .edit-form input[type="date"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .edit-form button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .save-btn {
+            background: #28a745;
+            color: white;
+        }
+
+        .cancel-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .add-task {
+                flex-direction: column;
+            }
+            
+            .task-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .task-actions {
+                margin-top: 10px;
+                align-self: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TODO MVP App</h1>
+        
+        <div class="add-task">
+            <input type="text" id="taskTitle" placeholder="Enter task title..." maxlength="100">
+            <input type="date" id="taskDeadline">
+            <button onclick="addTask()">Add Task</button>
+        </div>
+        
+        <ul class="task-list" id="taskList">
+            <li class="empty-state">No tasks yet. Add your first task above!</li>
+        </ul>
+    </div>
+
+    <script>
+        let tasks = [];
+        let editingTaskId = null;
+
+        function loadTasks() {
+            const stored = localStorage.getItem('todoTasks');
+            if (stored) {
+                tasks = JSON.parse(stored);
+            }
+            renderTasks();
+        }
+
+        function saveTasks() {
+            localStorage.setItem('todoTasks', JSON.stringify(tasks));
+        }
+
+        function addTask() {
+            const titleInput = document.getElementById('taskTitle');
+            const deadlineInput = document.getElementById('taskDeadline');
+            
+            const title = titleInput.value.trim();
+            if (!title) return;
+            
+            const task = {
+                id: Date.now().toString(),
+                title: title,
+                deadline: deadlineInput.value || null,
+                completed: false,
+                createdAt: new Date().toISOString()
+            };
+            
+            tasks.unshift(task);
+            saveTasks();
+            renderTasks();
+            
+            titleInput.value = '';
+            deadlineInput.value = '';
+        }
+
+        function toggleTask(id) {
+            const task = tasks.find(t => t.id === id);
+            if (task) {
+                task.completed = !task.completed;
+                saveTasks();
+                renderTasks();
+            }
+        }
+
+        function deleteTask(id) {
+            tasks = tasks.filter(t => t.id !== id);
+            saveTasks();
+            renderTasks();
+        }
+
+        function startEdit(id) {
+            editingTaskId = id;
+            renderTasks();
+        }
+
+        function saveEdit(id) {
+            const titleInput = document.querySelector(`#edit-title-${id}`);
+            const deadlineInput = document.querySelector(`#edit-deadline-${id}`);
+            
+            const task = tasks.find(t => t.id === id);
+            if (task && titleInput.value.trim()) {
+                task.title = titleInput.value.trim();
+                task.deadline = deadlineInput.value || null;
+                saveTasks();
+            }
+            
+            editingTaskId = null;
+            renderTasks();
+        }
+
+        function cancelEdit() {
+            editingTaskId = null;
+            renderTasks();
+        }
+
+        function getDeadlineStatus(deadline) {
+            if (!deadline) return '';
+            
+            const deadlineDate = new Date(deadline);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            deadlineDate.setHours(0, 0, 0, 0);
+            
+            const diffTime = deadlineDate.getTime() - today.getTime();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays < 0) return 'overdue';
+            if (diffDays <= 1) return 'due-soon';
+            return '';
+        }
+
+        function formatDeadline(deadline) {
+            if (!deadline) return '';
+            
+            const deadlineDate = new Date(deadline);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            deadlineDate.setHours(0, 0, 0, 0);
+            
+            const diffTime = deadlineDate.getTime() - today.getTime();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 0) return 'Due today';
+            if (diffDays === 1) return 'Due tomorrow';
+            if (diffDays === -1) return '1 day overdue';
+            if (diffDays < -1) return `${Math.abs(diffDays)} days overdue`;
+            if (diffDays > 1) return `Due in ${diffDays} days`;
+            
+            return deadline;
+        }
+
+        function renderTasks() {
+            const taskList = document.getElementById('taskList');
+            
+            if (tasks.length === 0) {
+                taskList.innerHTML = '<li class="empty-state">No tasks yet. Add your first task above!</li>';
+                return;
+            }
+            
+            const sortedTasks = tasks.sort((a, b) => {
+                if (a.completed !== b.completed) {
+                    return a.completed ? 1 : -1;
+                }
+                
+                if (a.deadline && b.deadline) {
+                    return new Date(a.deadline) - new Date(b.deadline);
+                }
+                if (a.deadline) return -1;
+                if (b.deadline) return 1;
+                
+                return new Date(b.createdAt) - new Date(a.createdAt);
+            });
+            
+            taskList.innerHTML = sortedTasks.map(task => {
+                const deadlineStatus = getDeadlineStatus(task.deadline);
+                const deadlineText = formatDeadline(task.deadline);
+                
+                if (editingTaskId === task.id) {
+                    return `
+                        <li class="task-item">
+                            <input type="checkbox" ${task.completed ? 'checked' : ''} disabled>
+                            <div class="task-content">
+                                <div class="edit-form">
+                                    <input type="text" id="edit-title-${task.id}" value="${task.title}">
+                                    <input type="date" id="edit-deadline-${task.id}" value="${task.deadline || ''}">
+                                    <button class="save-btn" onclick="saveEdit('${task.id}')">Save</button>
+                                    <button class="cancel-btn" onclick="cancelEdit()">Cancel</button>
+                                </div>
+                            </div>
+                        </li>
+                    `;
+                }
+                
+                return `
+                    <li class="task-item ${task.completed ? 'completed' : ''}">
+                        <input type="checkbox" ${task.completed ? 'checked' : ''} 
+                               onchange="toggleTask('${task.id}')">
+                        <div class="task-content">
+                            <div class="task-title ${task.completed ? 'completed' : ''}">${task.title}</div>
+                            ${deadlineText ? `<div class="task-deadline ${deadlineStatus}">${deadlineText}</div>` : ''}
+                        </div>
+                        <div class="task-actions">
+                            <button class="edit-btn" onclick="startEdit('${task.id}')">Edit</button>
+                            <button class="delete-btn" onclick="deleteTask('${task.id}')">Delete</button>
+                        </div>
+                    </li>
+                `;
+            }).join('');
+        }
+
+        document.getElementById('taskTitle').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addTask();
+            }
+        });
+
+        window.addEventListener('load', loadTasks);
+    </script>
+</body>
+</html>
