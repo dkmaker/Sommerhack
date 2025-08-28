@@ -120,4 +120,12 @@ Denne præsentation er organiseret i logiske sektioner der guider dig gennem AI 
 
 ---
 
+## 📚 Session Transcripts
+
+Se alle Claude Code sessions fra udviklingen af dette materiale: [transkript/README.md](transkript/README.md)
+
+Denne mappe indeholder detaljerede transkripter fra de 6 Claude Code sessions der blev brugt til at udvikle talk materialet. Hver session viser konkret hvordan AI-assisteret udvikling fungerer i praksis - fra planlægning og implementation til debugging og optimering.
+
+---
+
 *Navigér gennem sektionerne i rækkefølge for optimal flow, eller hop til specifikke emner efter behov.*
