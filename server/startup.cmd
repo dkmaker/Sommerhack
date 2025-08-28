@@ -1,0 +1,3 @@
+@echo off
+echo Starting TODO MVP Application...
+node index.js
